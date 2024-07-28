@@ -17,9 +17,13 @@ xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -desti
 xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -destination "generic/platform=iOS Simulator" -archivePath "archives/$SCHEME-iOS_Simulator"
 xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -destination "generic/platform=tvOS" -archivePath "archives/$SCHEME-tvOS"
 xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -destination "generic/platform=tvOS Simulator" -archivePath "archives/$SCHEME-tvOS_Simulator"
+xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -destination "generic/platform=visionOS" -archivePath "archives/$SCHEME-visionOS"
+xcodebuild archive -project mParticle-Apple-SDK.xcodeproj -scheme $SCHEME -destination "generic/platform=visionOS Simulator" -archivePath "archives/$SCHEME-visionOS_Simulator"
 xcodebuild -create-xcframework \
     -archive archives/$SCHEME-iOS.xcarchive -framework $MODULE.framework \
     -archive archives/$SCHEME-iOS_Simulator.xcarchive -framework $MODULE.framework \
     -archive archives/$SCHEME-tvOS.xcarchive -framework $MODULE.framework \
     -archive archives/$SCHEME-tvOS_Simulator.xcarchive -framework $MODULE.framework \
+    -archive archives/$SCHEME-visionOS.xcarchive -framework $MODULE.framework \
+    -archive archives/$SCHEME-visionOS_Simulator.xcarchive -framework $MODULE.framework \
     -output $MODULE.xcframework

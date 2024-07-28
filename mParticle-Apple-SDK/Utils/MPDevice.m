@@ -333,9 +333,13 @@ int main(int argc, char *argv[]);
         return _screenSize;
     }
     
-	CGRect bounds = [[UIScreen mainScreen] bounds];
-	CGFloat scale = [[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0;
-	_screenSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale);
+	#if TARGET_OS_IOS || TARGET_OS_MACCATALYST
+		CGRect bounds = [[UIScreen mainScreen] bounds];
+		CGFloat scale = [[UIScreen mainScreen] respondsToSelector:@selector(scale)] ? [[UIScreen mainScreen] scale] : 1.0;
+		_screenSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale);
+	#elif TARGET_OS_VISION
+		_screenSize = CGSizeZero;
+	#endif
     
     return _screenSize;
 }

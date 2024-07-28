@@ -177,8 +177,12 @@ NSString *const kMPUserIdentityOldValueKey = @"oi";
     NSNumber *mainThreadFlag;
     if ([NSThread isMainThread]) {
         if (![MPStateMachine isAppExtension]) {
+            #if TARGET_OS_IOS || TARGET_OS_MACCATALYST
             UIViewController *presentedViewController = [MPApplication sharedUIApplication].keyWindow.rootViewController.presentedViewController;
             presentedViewControllerDescription = presentedViewController ? [[presentedViewController class] description] : nil;
+            #elif TARGET_OS_VISION
+            presentedViewControllerDescription = @"unsupported on visionOS";
+            #endif
         } else {
             presentedViewControllerDescription = @"extension_message";
         }
